@@ -2,11 +2,7 @@ import { User } from "../models/user.js";
 import bcrypt from "bcrypt";
 import ErrorHandler from "../middlewares/error.js";
 import { sendCookie } from "../utils/features.js";
-import stripePackage from "stripe";
-
-const stripe = stripePackage(
-  "sk_test_51OXzJbSHKjSZN29oa0SYimaGP8TADF7OunRa3jE9lxVn8eMILmC7pbDqxuXRGHPhziyux34YsOGqbeRntgamQihB00txcuXajL"
-);
+import { stripe } from "../app.js";
 
 export const register = async (req, res, next) => {
   try {
@@ -70,7 +66,6 @@ export const CreateCheckoutSession = async (req, res) => {
   try {
     const productsArray = req.body.products;
     const lineItems = [];
-    console.log(process.env.SECRET_KEY);
 
     for (const productItem of productsArray) {
       const product = await stripe.products.create({

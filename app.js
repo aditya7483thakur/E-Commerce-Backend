@@ -7,32 +7,38 @@ import cartProductRouter from "./routes/cartProduct.js";
 import { Product } from "./models/product.js";
 import { config } from "dotenv";
 import cors from "cors";
+import stripePackage from "stripe";
 
 const app = express();
 config({
-  path: "./.env",
+  path: "./data/config.env",
 });
-
-mongoDb;
+export const stripe = stripePackage(process.env.SECRET_KEY);
 
 app.use(express.json());
 app.use(cookieParser());
 // Use cors middleware with specific options
 app.use(
   cors({
-    origin: "http://localhost:5173", // Replace with the allowed origin
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true, // Enable credentials (cookies, authorization headers)
+    origin: ["http://localhost:5173"],
+    methods: "GET,PUT,POST,DELETE",
+    credentials: true,
   })
 );
+
+mongoDb();
 
 app.get("/", (req, res) => {
   res.send("hii");
 });
 
 app.get("/products", async (req, res) => {
-  const products = await Product.find({});
-  res.json(products);
+  try {
+    const products = await Product.find({});
+    res.json(products);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 app.use("/users", userRouter);

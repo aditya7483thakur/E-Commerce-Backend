@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 
-export const mongoDb = mongoose
-  .connect("mongodb://127.0.0.1:27017", {
-    dbName: "E-Commerce",
-  })
-  .then(() => console.log("Database Connected"))
-  .catch((e) => console.log(e));
+export const mongoDb = () =>
+  mongoose
+    .connect(process.env.MONGO_URI, {
+      dbName: "E-Commerce",
+    })
+    .then((c) => console.log(`Database Connected ${c.connection.host}`))
+    .catch((e) => console.log(e));
