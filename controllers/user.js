@@ -93,7 +93,7 @@ export const CreateCheckoutSession = async (req, res) => {
       ui_mode: "embedded",
       line_items: lineItems,
       mode: "payment",
-      return_url: `https://shopspheree.vercel.app/return?session_id={CHECKOUT_SESSION_ID}`,
+      return_url: `https://shopspheree.netlify.app/return?session_id={CHECKOUT_SESSION_ID}`,
     });
     return res.send({ clientSecret: session.client_secret });
   } catch (error) {

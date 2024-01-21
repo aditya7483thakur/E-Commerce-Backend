@@ -20,7 +20,7 @@ app.use(cookieParser());
 // Use cors middleware with specific options
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://shopspheree.vercel.app"],
+    origin: ["http://localhost:5173", "https://shopspheree.netlify.app"],
     methods: "GET,PUT,POST,DELETE",
     credentials: true,
   })
